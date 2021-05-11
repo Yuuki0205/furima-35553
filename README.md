@@ -17,7 +17,7 @@
 ### Association
 
 - has_many :items
-- has_one  :purchase_history
+- has_many  :purchase_histories
 
 # items テーブル
 
@@ -41,7 +41,7 @@
 
 
 
-# address テーブル
+# addresses テーブル
 
 | Column           | Type       | Options                         |
 | --------         | ------     | -----------                     |
@@ -51,7 +51,7 @@
 | address          | string     |  null: false                    |
 | building_name    | string     |                                 |
 | phone_number     | string     |  null: false                    |
-| user             | references |  null: false, foreign_key: true |
+| purchase_history | references |  null: false, foreign_key: true |
 
  
 
@@ -59,7 +59,7 @@
 belongs_to :purchase_history
 
 
-# purchase_history テーブル
+# purchase_histories テーブル
 
 | Column           | Type       | Options                       |
 | --------         | ------     | -----------                   |
