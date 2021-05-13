@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     nickname {"name"}
     email {Faker::Internet.free_email}
-    password = Faker::Internet.password(min_length: 6)
+    password = '1a' + Faker::Internet.password(min_length: 6)
     password {password}
     password_confirmation {password}
     first_name {"太郎"}
@@ -15,7 +15,7 @@ FactoryBot.define do
 end
 
 
-
+# 事後学習用にコメントアウトを残しておきます
 
 # it 'passwordが空だと登録できない' do
 #   user = FactoryBot.build(:user)
