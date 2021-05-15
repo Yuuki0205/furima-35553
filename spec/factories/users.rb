@@ -11,6 +11,8 @@ FactoryBot.define do
     last_name_kana { 'ヤマダ' }
     birth_date { '2000-02-05' }
   end
+
+  
 end
 
 # 事後学習用にコメントアウトを残しておきます
