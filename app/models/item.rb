@@ -6,7 +6,7 @@ class Item < ApplicationRecord
    with_options numericality: { other_than: 1 } do
    validates :product_category_id
    validates :product_condition_id
-   validates :shipping_charges_id
+   validates :shipping_charge_id
    validates :prefecture_id
    validates :days_ship_id
    end

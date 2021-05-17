@@ -41,9 +41,9 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Product condition must be other than 1")
       end
       it '配送料の負担についての情報が必須であること' do
-        @item.shipping_charges_id = 1
+        @item.shipping_charge_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping charges must be other than 1")
+        expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
       end
       it '発送元の地域についての情報が必須であること' do
         @item.prefecture_id = 1
