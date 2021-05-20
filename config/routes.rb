@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :items 
   root to:  "items#index"
+  
+  resources :items do
+  resources :purchase_histories
+  root to: "purchase_histories#index"
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
