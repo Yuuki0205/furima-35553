@@ -5,7 +5,6 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all.order('created_at DESC')
-    
   end
 
   def new
@@ -23,39 +22,31 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
-    if current_user.id == @item.user_id
-    if @item.purchase_history.present?
-      redirect_to root_path
-    end
-    end
+    redirect_to root_path if current_user.id == @item.user_id && @item.purchase_history.present?
     # editとupdateのunless文は復習のため置いておきます
-    # unless @item.user_id == current_user.id 
-    #   redirect_to action: :index 
-    #  end
-    
-  end
-  def update
-    #検証ツールを用いた不正なアクセスを防ぐ目的があります！
     # unless @item.user_id == current_user.id
     #   redirect_to action: :index
     #  end
-    
+  end
+
+  def update
+    # 検証ツールを用いた不正なアクセスを防ぐ目的があります！
+    # unless @item.user_id == current_user.id
+    #   redirect_to action: :index
+    #  end
+
     if @item.update(item_params)
       redirect_to item_path
     else
       render :edit
-    end  
+    end
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
-    
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -64,23 +55,18 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:product_name, :product_description, :product_category_id, :product_condition_id,
                                  :shipping_charge_id, :prefecture_id, :days_ship_id, :price, :image).merge(user_id: current_user.id)
   end
+
   def set_item
     @item = Item.find(params[:id])
   end
 
- def move_to_index
-    unless @item.user_id == current_user.id
-      
-    redirect_to action: :index
-   
-    end
+  def move_to_index
+    redirect_to action: :index unless @item.user_id == current_user.id
     # unless文と同じ意味 復習のため残しておきます。
     # if current_user.id == @item.user_id
     #   if @item.purchase_history.present?
     #     redirect_to root_path
     #   end
     #   end
- end
- 
-
+  end
 end
