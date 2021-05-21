@@ -12,8 +12,11 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
   it '全ての値が正しく入力されていれば購入できること' do
     expect(@purchase_history_address).to be_valid
   end
+  it '建物名の記入がなくても登録できること' do
+    @purchase_history_address.building_name = ''
+    expect(@purchase_history_address). to be_valid
  end
-
+ end
  context '商品購入がうまくいかない時' do
   it '郵便番号が空だと保存できない' do
     @purchase_history_address.postal_code = ''
@@ -66,6 +69,12 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
     @purchase_history_address.valid?
     expect(@purchase_history_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
   end
+  it '全角数字だと登録できないこと' do
+    @purchase_history_address.phone_number = '０９０１１１１１１１１'
+    @purchase_history_address.valid?
+    expect(@purchase_history_address.errors.full_messages).to include("Phone number is not a number")
+  end
+  
   it "tokenが空では登録できないこと" do
     @purchase_history_address.token = nil
     @purchase_history_address.valid?
@@ -78,7 +87,7 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
  
 
 
-   end
+end
   end
 end
 
