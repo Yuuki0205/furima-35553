@@ -1,14 +1,13 @@
 class PurchaseHistoriesController < ApplicationController
+  before_action :authenticate_user!
   def index
     
     @purchase_history_address = PurchaseHistoryAddress.new
     @item = Item.find(params[:item_id])
-    if current_user.id == @item.user_id
+    if current_user.id == @item.user_id || @item.purchase_history.present?
       redirect_to root_path
     end
-    if @item.purchase_history.present?
-      redirect_to root_path
-    end
+    
 
 
    
