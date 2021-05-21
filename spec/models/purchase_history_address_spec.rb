@@ -66,25 +66,19 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
     @purchase_history_address.valid?
     expect(@purchase_history_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
   end
-  it do
+  it "tokenが空では登録できないこと" do
+    @purchase_history_address.token = nil
+    @purchase_history_address.valid?
+    expect(@purchase_history_address.errors.full_messages).to include("Token can't be blank")
   end
-  it do
-  end
-  it do
-  end
-  it do
-  end
-  it do
-  end
-  it do
-  end
+  
 
 
 
- end
+ 
 
 
-
+   end
   end
 end
 
