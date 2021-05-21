@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all.order('created_at DESC')
+    
   end
 
   def new
@@ -26,6 +27,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if current_user.id == @item.user_id
+    if @item.purchase_history.present?
+      redirect_to root_path
+    end
+    end
     # editとupdateのunless文は復習のため置いておきます
     # unless @item.user_id == current_user.id 
     #   redirect_to action: :index 

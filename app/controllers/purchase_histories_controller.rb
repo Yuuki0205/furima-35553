@@ -1,12 +1,17 @@
 class PurchaseHistoriesController < ApplicationController
   def index
-    # PurchaseHistoryAddressのインスタンス生成
+    
     @purchase_history_address = PurchaseHistoryAddress.new
     @item = Item.find(params[:item_id])
-    # +α商品情報を持ったインスタンスを作成
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
+    if @item.purchase_history.present?
+      redirect_to root_path
+    end
 
-    # => purchase_histories/index.html.erbを編集する。
-    # createにbinding.pryを入れてターミナルにparamsと入力。paramsの中に必要なデータが入っていればOK
+
+   
   end
 
   def create
