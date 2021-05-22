@@ -1,11 +1,11 @@
 class PurchaseHistoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :sett_item, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
   before_action :move_to_create, only:[:index, :create]
   def index
     
     @purchase_history_address = PurchaseHistoryAddress.new
-    @item = Item.find(params[:item_id])
+    
     
     
 
@@ -15,7 +15,7 @@ class PurchaseHistoriesController < ApplicationController
 
   def create
     
-    @item = Item.find(params[:item_id])
+    
     @purchase_history_address = PurchaseHistoryAddress.new(purchase_history_params)
     if @purchase_history_address.valid?
       pay_item
@@ -29,8 +29,8 @@ class PurchaseHistoriesController < ApplicationController
 
 
  private
- def sett_item
-  @item = Item.find(params[:id])
+ def set_item
+  @item = Item.find(params[:item_id])
  end
 
  def purchase_history_params
@@ -49,6 +49,7 @@ class PurchaseHistoriesController < ApplicationController
   if current_user.id == @item.user_id || @item.purchase_history.present?
     redirect_to root_path
   end
+end
 end
 
 

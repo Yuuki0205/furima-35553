@@ -58,12 +58,12 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号は11桁以内の数値のみ保存ができる' do
+      it '電話番号は半角英字だと保存出来ない' do
         @purchase_history_address.phone_number = 'aaaaaaaaaaa'
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include('Phone number is not a number')
       end
-      it '電話番号は11桁以上は保存できない' do
+      it '電話番号は12桁以上だと登録出来ない' do
         @purchase_history_address.phone_number = '090123456789'
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
@@ -78,6 +78,16 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
         @purchase_history_address.token = nil
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では登録できない。' do
+        @purchase_history_address.user_id = nil
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できない。' do
+        @purchase_history_address.item_id = nil
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

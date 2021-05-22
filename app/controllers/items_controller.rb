@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if current_user.id == @item.user_id && @item.purchase_history.present?
+    
     # editとupdateのunless文は復習のため置いておきます
     # unless @item.user_id == current_user.id
     #   redirect_to action: :index
@@ -61,12 +61,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to action: :index unless @item.user_id == current_user.id
-    # unless文と同じ意味 復習のため残しておきます。
-    # if current_user.id == @item.user_id
-    #   if @item.purchase_history.present?
-    #     redirect_to root_path
-    #   end
-    #   end
+    redirect_to root_path if current_user.id != @item.user_id || @item.purchase_history.present?
+   
   end
 end
